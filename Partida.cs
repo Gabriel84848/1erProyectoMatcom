@@ -1,3 +1,5 @@
+using Spectre.Console;
+
 public class Partida
 {
     private Tablero tablero;
@@ -6,9 +8,9 @@ public class Partida
 
     public Partida()
     {
-        numJugadores = 4; // maximo
+        numJugadores = 4; // se modifica mas tarde
         tablero = new Tablero();
-        ListaJugadores = new List<Jugador>();  // listica de jugadores
+        ListaJugadores = new List<Jugador>();  // crea lista con jugadores
     }
     public void Iniciar()
     {
@@ -76,16 +78,15 @@ public class Partida
         // la lista de las fichas del juegp (lista de objetos tipo Ficha)
         List<Ficha> ListaDeFichas = new List<Ficha>
         {
-            new Ficha("Luchador", 2, "Destrucción", 4, 0, 3),
-            new Ficha("Ladrón", 2, "Tomar Prestado", 2, 0, 7),
-            new Ficha("Judio", 2, "Robar", 2, 0, 11),
-            new Ficha("Mago Brujo", 2, "Hechizo de Novato", 4, 0, 15),
-            new Ficha("Zombie Nazi", 1, "Gas Alemán", 4, 0, 19)
+            new Ficha("Cyborg", 3, "Destrucción", 4, -1, -1),
+            new Ficha("Ladrón", 3, "Tomar Prestado", 2, -1, -1),
+            new Ficha("Judio", 3, "Robar", 2, -1, -1),
+            new Ficha("Mago Brujo", 3, "Hechizo de Novato", 4, -1, -1),
+            new Ficha("Zombie Nazi", 2, "Gas Alemán", 4, -1, -1)
         };
-        // for principal para aasignar una ficha a cada jugador (1 vez por cada jugador)
-        
-        // entonces se crea el tablero
         tablero.GenerarTablero();
+        
+        // for principal para aasignar una ficha a cada jugador (1 vez por cada jugador)
         for (int i = 0; i < numJugadores; i++)  
         {
             Console.WriteLine($"Jugador {i + 1}, selecciona una ficha:");
@@ -113,6 +114,30 @@ public class Partida
             
             Ficha ficha = ListaDeFichas[NumSeleccionado];   // asigna a ficha, la que selecciono el jugador 
             ListaDeFichas.RemoveAt(NumSeleccionado); // eliminar la ficha seleccionada para que no se repita usando RemoveaAt (metodo de List)
+
+            int coordX=0;
+            int coordY=0;
+            switch (i)
+            {
+                case 0:
+                coordX=0;
+                coordY=0;
+                break;
+                case 1:
+                coordX=0;
+                coordY=29;
+                break;
+                case 2:
+                coordX=0;
+                coordY=29;
+                break;
+                case 3:
+                coordX=0;
+                coordY=29;
+                break;
+            }
+            ficha.PosActualX = coordX;
+            ficha.PosActualY = coordY;
             tablero.MatrizFichas[ficha.PosActualX, ficha.PosActualY] = ficha;   // colocar la ficha en la matriz de fichas segun la caracteristica de la ficha
             ListaJugadores[i].AsignarFicha(ficha);  // accede al jugador actual (segun el for) de la lista de jugadores y le agrega la ficha seleccionada
         }
@@ -127,25 +152,25 @@ public class Partida
         {
             for (int j = 0; j < tablero.tamano; j++)
             {
-                if(i== PosX && j == PosY)
+                if(tablero.MatrizVictoria[i,j])
                 {
-                    Console.Write("$ ");
+                    AnsiConsole.Markup("[green]$[/] ");
                 }
                 else if (tablero.MatrizFichas[i, j] != null)
                 {   //ablero.MatrizFichas[i, j] accede a la ficha en esa posicion. tablero.MatrizFichas[i, j].Nombre  muestra el nombre de la ficha
-                    Console.Write(tablero.MatrizFichas[i, j].Nombre.Substring(0, 1) + " ");     //substring sirve para sacar un substring de un string. en este caso 0 indica que sera el primer caracter y 1 que la longitud del substing es de 1 
+                    AnsiConsole.Markup($"[blue]{tablero.MatrizFichas[i, j].Nombre.Substring(0, 1)}[/] ");     //substring sirve para sacar un substring de un string. en este caso 0 indica que sera el primer caracter y 1 que la longitud del substing es de 1 
                 }                                                                         // + " " hace que la primera letra del Nombre de la ficha se muestre
                 else if (tablero.MatrizObstaculos[i, j])
                 {
-                    Console.Write("O ");
+                    AnsiConsole.Markup("[yellow]O[/] ");
                 }
                 else if (tablero.MatrizTrampas[i, j] != null && tablero.MatrizTrampas[i,j].Visible)  //revisa que exista una trampa y que a su vez sea visible. Si se cumplen ambos se muestra en el mapa
                 {
-                    Console.Write("T ");
+                    AnsiConsole.Markup("[red]T[/] ");
                 }
                 else
                 {
-                    Console.Write(". ");
+                    AnsiConsole.Markup("[grey].[/] ");
                 }
             }
             Console.WriteLine();
@@ -289,7 +314,7 @@ private (int objetivoX, int objetivoY) LeerCoordenadasHabilidad(Ficha ficha)
             break;
         default:
             Console.WriteLine("LAS FLECHAS DIRECCIONALES DEL TECLADO!!!. Intentalo otra vez");
-            return LeerCoordenadasHabilidad(ficha); // Llamada recursiva para intentarlo de nuevo
+            return LeerCoordenadasHabilidad(ficha); // intentarlo de nuevo
     }
     // Calcular las coordenadas objetivo
     int objetivoX = ficha.PosActualX + DirX;
@@ -303,10 +328,10 @@ private (int objetivoX, int objetivoY) LeerCoordenadasHabilidad(Ficha ficha)
     else
     {
         Console.WriteLine("Quieres usar la habilidad fuera del tablero?. Mira a ver lo que estas haciendo e intentalo otra vez");
-        return LeerCoordenadasHabilidad(ficha); //intentarlo de nuevo
+        return LeerCoordenadasHabilidad(ficha); 
     }
 }
-    private void ActualizarFichas()
+    private void ActualizarFichas()    //revisar
     {
         foreach (Jugador jugador in ListaJugadores)
         {

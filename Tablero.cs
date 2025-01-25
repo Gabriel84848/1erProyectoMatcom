@@ -15,10 +15,10 @@ public class Tablero
         MatrizTrampas = new Trampa[tamano, tamano];  //QUITAR CLASE TRAMPA MAS TARDE
         MatrizFichas = new Ficha[tamano, tamano];
     }
-    private void InicializarMatrizObstaculos()
+private void InicializarMatrizObstaculos()
 {
     string[] patrones = {
-        "1.....0...0........0...0.....2",
+        "......0...0........0...0......",
         "000.0.00.0000.00.0000.00.0.000",
         "....0.....0........0.....0....",
         ".00.0000000.000000.0000000.00.",
@@ -32,8 +32,8 @@ public class Tablero
         ".0.0.00.000.0.00.0.000.00.0.0.",
         ".0.0..0.0.....00.....0.0..0.0.",
         ".0.00.0.0.0000000000.0.0.00.0.",
-        ".0....0...............0....0.",
-        ".0....0...............0....0.",
+        ".0....0................0....0.",
+        ".0....0................0....0.",
         ".0.00.0.0.0000000000.0.0.00.0.",
         ".0.0..0.0.....00.....0.0..0.0.",
         ".0.0.00.000.0.00.0.000.00.0.0.",
@@ -47,16 +47,17 @@ public class Tablero
         ".00.0000000.000000.0000000.00.",
         "....0.....0........0.....0....",
         "000.0.00.0000.00.0000.00.0.000",
-        "3.....0...0........0...0.....4"
+        "......0...0........0...0......"
     };
 
     for (int i = 0; i < tamano; i++)
     {
         for (int j = 0; j < tamano; j++)
         {
+            // Ajusta el valor de la matriz de obstáculos según el patrón
             if (patrones[i][j] == '0')
             {
-                MatrizObstaculos[i, j] = true; //transforma donde halla un 0 a obstaculos
+                MatrizObstaculos[i, j] = true;
             }
             else
             {
@@ -65,7 +66,6 @@ public class Tablero
         }
     }
 }
-
     public void GenerarTablero()
     {
         InicializarMatrizObstaculos();
@@ -75,7 +75,7 @@ public class Tablero
             {
                 MatrizTrampas[i, j] = null;
                 MatrizFichas[i, j] = null;
-                if((i==15 && j==15) || (i==16 && j==15) || (i==15 && j==16) || (i==16 && j==16))
+                if((i==14 && j==14) || (i==15 && j==14) || (i==14 && j==15) || (i==15 && j==15))
                 {
                     MatrizVictoria[i,j]=true;
                 }
@@ -93,7 +93,7 @@ public class Tablero
     public void desColocarObstaculos()
     {
         Random random = new Random();
-        int numObstaculos = 20;       //ajustar el num de obstaculos
+        int numObstaculos = 100;       //ajustar el num de obstaculos
 
         for (int i = 0; i < numObstaculos; i++)   //una iteracion por cada numObstaculos
         {
@@ -103,7 +103,7 @@ public class Tablero
             {
                 fila = random.Next(tamano);
                 columna = random.Next(tamano);
-            } while (MatrizObstaculos[fila, columna]);  //si es true (hay ya un obsta) se vuelve a repetir el bucle, si no sale del bucle
+            } while (!MatrizObstaculos[fila, columna]);  //si es true (hay ya un obsta) se vuelve a repetir el bucle, si no sale del bucle
 
             MatrizObstaculos[fila, columna] = false;  
         }
@@ -112,7 +112,7 @@ public class Tablero
     private void ColocarTrampas()   //teienes que hacer que las trampas no sean visibles cuando se genere el tablero, o solo hacerlas visibles para el ladron y el judio
     {
         Random random = new Random(); 
-        int numTrampas = 25;
+        int numTrampas = 35;
 
         for (int i = 0; i < numTrampas; i++)
         {

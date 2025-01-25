@@ -10,7 +10,7 @@ public class Trampa
         Nombre = nombre;
         Efecto = efecto;
         Duracion = duracion;
-        Visible = true; //se inician invisibles
+        Visible = true; //se inician invisibles //cuando quites la clase trampa tienes que hacer alguna logica para esto
     }
 
     public void AplicarEfecto(Ficha ficha)
