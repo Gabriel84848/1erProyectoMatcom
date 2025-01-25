@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "TNbvRl0XMKY=",
+  "success": true,
+  "projectFilePath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\ConsoleApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gabri\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error al obtener los datos de vulnerabilidad del paquete: No se puede cargar el índice de servicio del origen https://api.nuget.org/v3/index.json."
+    }
+  ]
+}
