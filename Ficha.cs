@@ -46,8 +46,8 @@ public class Ficha
                         }
                         break;
 
-                    case "Tomar Prestado":
-                        if (tablero.MatrizTrampas[objetivoX, objetivoY] != null)
+                    case "Magia Negra":
+                        if (tablero.MatrizTrampas[objetivoX, objetivoY] == true)
                         {
                             Console.WriteLine($"{Nombre} ha tomado prestada la trampa en ({objetivoX}, {objetivoY}) y ahora no hay ninguna");
                             tablero.MatrizTrampas[objetivoX, objetivoY] = false;
@@ -58,8 +58,8 @@ public class Ficha
                         }
                         break;
 
-                    case "Robar":
-                        if (tablero.MatrizTrampas[objetivoX, objetivoY] != null)
+                    case "Tomar prestado":
+                        if (tablero.MatrizTrampas[objetivoX, objetivoY] == true)
                         {
                             Random random = new Random();
                             int nuevoX, nuevoY;
@@ -67,7 +67,7 @@ public class Ficha
                             {
                                 nuevoX = random.Next(tablero.tamano);
                                 nuevoY = random.Next(tablero.tamano);
-                            } while (tablero.MatrizObstaculos[nuevoX, nuevoY] || tablero.MatrizTrampas[nuevoX, nuevoY] != null);
+                            } while (tablero.MatrizObstaculos[nuevoX, nuevoY] || tablero.MatrizTrampas[nuevoX, nuevoY] == true);
 
                             tablero.MatrizTrampas[nuevoX, nuevoY] = tablero.MatrizTrampas[objetivoX, objetivoY];
                             tablero.MatrizTrampas[objetivoX, objetivoY] = false;

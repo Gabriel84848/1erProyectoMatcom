@@ -111,7 +111,7 @@ private void InicializarMatrizObstaculos()
     private void ColocarTrampas()   //teienes que hacer que las trampas no sean visibles cuando se genere el tablero, o solo hacerlas visibles para el ladron y el judio
     {
         Random random = new Random(); 
-        int numTrampas = 35;
+        int numTrampas = 60;
 
         for (int i = 0; i < numTrampas; i++)
         {
@@ -140,7 +140,7 @@ private void InicializarMatrizObstaculos()
             MatrizFichas[FilaInicio, ColInicio] = null;
             //actualiza despues de moverse
 
-            if (MatrizTrampas[FilaFinal, ColFinal] != null)
+            if (MatrizTrampas[FilaFinal, ColFinal] == true)
             {
                 AplicarTrampa(MatrizFichas[FilaFinal, ColFinal]);
                 MatrizTrampas[FilaFinal, ColFinal] = false; // cuando te comes una trampa se quita

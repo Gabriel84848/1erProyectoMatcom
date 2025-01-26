@@ -1,5 +1,4 @@
 using Spectre.Console;
-
 public class Partida
 {
     private Tablero tablero;
@@ -79,8 +78,8 @@ public class Partida
         List<Ficha> ListaDeFichas = new List<Ficha>
         {
             new Ficha("Cyborg", 3, "Destrucción", 4, -1, -1),
-            new Ficha("Ladrón", 3, "Tomar Prestado", 2, -1, -1),
-            new Ficha("Judio", 3, "Robar", 2, -1, -1),
+            new Ficha("Ladrón", 3, "Tomar prestado", 2, -1, -1),
+            new Ficha("Judio", 3, "Magia Negra", 2, -1, -1),
             new Ficha("Mago Brujo", 3, "Hechizo de Novato", 4, -1, -1),
             new Ficha("Zombie Nazi", 2, "Gas Alemán", 4, -1, -1)
         };
