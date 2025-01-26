@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\ConsoleApp1.csproj": {}
+    "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\ConsoleApp1.csproj": {}
   },
   "projects": {
-    "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\ConsoleApp1.csproj": {
+    "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\ConsoleApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\ConsoleApp1.csproj",
+        "projectUniqueName": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\ConsoleApp1.csproj",
         "projectName": "ConsoleApp1",
-        "projectPath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\ConsoleApp1.csproj",
+        "projectPath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\ConsoleApp1.csproj",
         "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\obj\\",
+        "outputPath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"

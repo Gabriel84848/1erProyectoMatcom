@@ -142,7 +142,6 @@ private void InicializarMatrizObstaculos()
 
             if (MatrizTrampas[FilaFinal, ColFinal] == true)
             {
-
                 AplicarTrampa(MatrizFichas[FilaFinal, ColFinal]);
                 MatrizTrampas[FilaFinal, ColFinal] = false; // cuando te comes una trampa se quita
             }

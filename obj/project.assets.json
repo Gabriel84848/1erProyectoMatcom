@@ -50,11 +50,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectPath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\ConsoleApp1.csproj",
       "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\Proyecto 2.0\\ConsoleApp1\\obj\\",
+      "outputPath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -110,13 +110,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error al obtener los datos de vulnerabilidad del paquete: No se puede cargar el índice de servicio del origen https://api.nuget.org/v3/index.json."
-    }
-  ]
+  }
 }

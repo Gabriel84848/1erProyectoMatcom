@@ -9,6 +9,7 @@ public class Ficha
     private int velocidadOriginal; // guarda el valor fijo de la velocidad original
     public int PosActualX;
     public int PosActualY;
+    public bool VerSiMagiaNegraEstaActivaEnElTurnoActual;
 
     public Ficha(string nombre, int velocidad, string habilidad, int enfriamiento, int posX, int posY)
     {
@@ -47,15 +48,8 @@ public class Ficha
                         break;
 
                     case "Magia Negra":
-                        if (tablero.MatrizTrampas[objetivoX, objetivoY] == true)
-                        {
-                            Console.WriteLine($"{Nombre} ha tomado prestada la trampa en ({objetivoX}, {objetivoY}) y ahora no hay ninguna");
-                            tablero.MatrizTrampas[objetivoX, objetivoY] = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"No hay trampa en ({objetivoX}, {objetivoY})");
-                        }
+                        VerSiMagiaNegraEstaActivaEnElTurnoActual = true;
+                        Console.WriteLine($"El Judio esta usando magia negra y prodra reflejar efectos de las trampa que toque");
                         break;
 
                     case "Tomar prestado":
@@ -160,23 +154,35 @@ public class Ficha
         PosActualY = nuevoY;
         Console.WriteLine($"{Nombre} se mueve a ({nuevoX}, {nuevoY})");
     }
-    public void ReflejarTrampa(Tablero tablero, List<Jugador> listarandom)
+    public void ReflejarTrampa(Tablero tablero, List<Jugador> jugadorrandom)
     {
-        if (efectoDuracion > 0 && Habilidad == "Magia Negra") //aprovechando que la ficha se mueve 3, el efecto dura 3 mov
-        {
+        if (VerSiMagiaNegraEstaActivaEnElTurnoActual)
+        {  
             Random random = new Random();
-            Jugador Jugadorrandom;
+            List<Jugador> DemasJugadoresMenosThis = new List<Jugador>(); //pasar los demas jug a otra lista
 
-            do
+            foreach (Jugador jugador in jugadorrandom)
             {
-                Jugadorrandom = listarandom[random.Next(4)];
-            } while (Jugadorrandom.Ficha == this); //
+                if (jugador.Ficha != this)
+                {
+                    DemasJugadoresMenosThis.Add(jugador);
+                }
+            }
+            if (DemasJugadoresMenosThis.Count > 0)
+            {
+                int NumeroRandom = random.Next(DemasJugadoresMenosThis.Count);
+                Jugador jugadorAleatorio = DemasJugadoresMenosThis[NumeroRandom];
+                Ficha fichaAleatoria = jugadorAleatorio.Ficha;
 
-            tablero.AplicarTrampa(Jugadorrandom.Ficha);
-            Console.WriteLine($"{Nombre} hace que {Jugadorrandom.Nombre} se coma la trampa para que el salga ileso");
-
-            efectoDuracion--; // deberia funcionar para que el efecto dure hasta que la ficha se quede sin pasos ese turno
+                Console.WriteLine($"El Judio refleja la trampa a la ficha {fichaAleatoria.Nombre} del jugador {jugadorAleatorio.Nombre}");
+                tablero.AplicarTrampa(fichaAleatoria); 
+            }
+            else
+            {
+                Console.WriteLine("No hay otros jugadores en la partida, el efecto de la trampa es nulo.");
+            }
+            VerSiMagiaNegraEstaActivaEnElTurnoActual = false;
         }
     }
-   
+
 }
