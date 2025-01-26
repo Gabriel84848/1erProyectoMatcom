@@ -154,12 +154,29 @@ public class Ficha
             }
         }
     }
-
     public void Mover(int nuevoX, int nuevoY)
     {
         PosActualX = nuevoX;
         PosActualY = nuevoY;
         Console.WriteLine($"{Nombre} se mueve a ({nuevoX}, {nuevoY})");
     }
-    
+    public void ReflejarTrampa(Tablero tablero, List<Jugador> listarandom)
+    {
+        if (efectoDuracion > 0 && Habilidad == "Magia Negra") //aprovechando que la ficha se mueve 3, el efecto dura 3 mov
+        {
+            Random random = new Random();
+            Jugador Jugadorrandom;
+
+            do
+            {
+                Jugadorrandom = listarandom[random.Next(4)];
+            } while (Jugadorrandom.Ficha == this); //
+
+            tablero.AplicarTrampa(Jugadorrandom.Ficha);
+            Console.WriteLine($"{Nombre} hace que {Jugadorrandom.Nombre} se coma la trampa para que el salga ileso");
+
+            efectoDuracion--; // deberia funcionar para que el efecto dure hasta que la ficha se quede sin pasos ese turno
+        }
+    }
+   
 }

@@ -142,12 +142,13 @@ private void InicializarMatrizObstaculos()
 
             if (MatrizTrampas[FilaFinal, ColFinal] == true)
             {
+
                 AplicarTrampa(MatrizFichas[FilaFinal, ColFinal]);
                 MatrizTrampas[FilaFinal, ColFinal] = false; // cuando te comes una trampa se quita
             }
         }
     }
-    private void AplicarTrampa(Ficha ficha)
+    public void AplicarTrampa(Ficha ficha)
     {
         Random random = new Random();
         int tipoTrampa = random.Next(3);
@@ -169,4 +170,3 @@ private void InicializarMatrizObstaculos()
         }
     }
 }
-
