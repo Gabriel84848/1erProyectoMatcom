@@ -1,11 +1,11 @@
 public class Ficha
-{
+{ 
     public string Nombre;
     public int Velocidad;  //se modifica en dependencia del efecto
     public string Habilidad;
     public int Enfriamiento;
     public int enfriamientoActual;
-    private int efectoDuracion; // Duración del efecto en turnos
+    public int efectoDuracion; // Duración del efecto en turnos
     private int velocidadOriginal; // guarda el valor fijo de la velocidad original
     public int PosActualX;
     public int PosActualY;
@@ -50,7 +50,7 @@ public class Ficha
                         if (tablero.MatrizTrampas[objetivoX, objetivoY] != null)
                         {
                             Console.WriteLine($"{Nombre} ha tomado prestada la trampa en ({objetivoX}, {objetivoY}) y ahora no hay ninguna");
-                            tablero.MatrizTrampas[objetivoX, objetivoY] = null;
+                            tablero.MatrizTrampas[objetivoX, objetivoY] = false;
                         }
                         else
                         {
@@ -70,7 +70,7 @@ public class Ficha
                             } while (tablero.MatrizObstaculos[nuevoX, nuevoY] || tablero.MatrizTrampas[nuevoX, nuevoY] != null);
 
                             tablero.MatrizTrampas[nuevoX, nuevoY] = tablero.MatrizTrampas[objetivoX, objetivoY];
-                            tablero.MatrizTrampas[objetivoX, objetivoY] = null;
+                            tablero.MatrizTrampas[objetivoX, objetivoY] = false;
                             Console.WriteLine($"{Nombre} recoloca la trampa de ({objetivoX}, {objetivoY}) a ({nuevoX}, {nuevoY})");
                         }
                         else
@@ -87,7 +87,7 @@ public class Ficha
                         {
                             foreach (Ficha ficha in tablero.MatrizFichas)
                             {
-                                if (ficha != null && ficha != this) // No afectar a sí misma
+                                if (ficha != null && ficha != this) // No comerse su propio efecto
                                 {
                                     if (ficha.Velocidad > 0) // Verificar velocidad
                                     {

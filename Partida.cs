@@ -8,7 +8,7 @@ public class Partida
 
     public Partida()
     {
-        numJugadores = 4; // se modifica mas tarde
+        numJugadores = 4;
         tablero = new Tablero();
         ListaJugadores = new List<Jugador>();  // crea lista con jugadores
     }
@@ -164,7 +164,7 @@ public class Partida
                 {
                     AnsiConsole.Markup("[yellow]O[/] ");
                 }
-                else if (tablero.MatrizTrampas[i, j] != null && tablero.MatrizTrampas[i,j].Visible)  //revisa que exista una trampa y que a su vez sea visible. Si se cumplen ambos se muestra en el mapa
+                else if (tablero.MatrizTrampas[i, j])
                 {
                     AnsiConsole.Markup("[red]T[/] ");
                 }
@@ -314,7 +314,7 @@ private (int objetivoX, int objetivoY) LeerCoordenadasHabilidad(Ficha ficha)
             break;
         default:
             Console.WriteLine("LAS FLECHAS DIRECCIONALES DEL TECLADO!!!. Intentalo otra vez");
-            return LeerCoordenadasHabilidad(ficha); // intentarlo de nuevo
+            return LeerCoordenadasHabilidad(ficha); //intentarlo de nuevo
     }
     // Calcular las coordenadas objetivo
     int objetivoX = ficha.PosActualX + DirX;
@@ -328,7 +328,7 @@ private (int objetivoX, int objetivoY) LeerCoordenadasHabilidad(Ficha ficha)
     else
     {
         Console.WriteLine("Quieres usar la habilidad fuera del tablero?. Mira a ver lo que estas haciendo e intentalo otra vez");
-        return LeerCoordenadasHabilidad(ficha); 
+        return LeerCoordenadasHabilidad(ficha);
     }
 }
     private void ActualizarFichas()    //revisar

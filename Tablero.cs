@@ -4,7 +4,7 @@ public class Tablero
     public int tamano;
     public bool[,] MatrizObstaculos;
     public bool[,] MatrizVictoria;
-    public Trampa[,] MatrizTrampas; 
+    public bool[,] MatrizTrampas; 
     public Ficha[,] MatrizFichas; 
 
     public Tablero()  //contrucctor
@@ -12,7 +12,7 @@ public class Tablero
         tamano = 30;
         MatrizObstaculos = new bool[tamano, tamano];
         MatrizVictoria = new bool[tamano, tamano];
-        MatrizTrampas = new Trampa[tamano, tamano];  //QUITAR CLASE TRAMPA MAS TARDE
+        MatrizTrampas = new bool[tamano, tamano];
         MatrizFichas = new Ficha[tamano, tamano];
     }
 private void InicializarMatrizObstaculos()
@@ -73,7 +73,7 @@ private void InicializarMatrizObstaculos()
         {
             for (int j = 0; j < tamano; j++)
             {
-                MatrizTrampas[i, j] = null;
+                MatrizTrampas[i, j] = false;
                 MatrizFichas[i, j] = null;
                 if((i==14 && j==14) || (i==15 && j==14) || (i==14 && j==15) || (i==15 && j==15))
                 {
@@ -87,7 +87,6 @@ private void InicializarMatrizObstaculos()
         }
         desColocarObstaculos();
         ColocarTrampas();
-        VisionDeTrampas();
     }
 
     public void desColocarObstaculos()
@@ -122,42 +121,10 @@ private void InicializarMatrizObstaculos()
             {
                 fila = random.Next(tamano);
                 columna = random.Next(tamano);
-            } while (MatrizObstaculos[fila, columna] || MatrizTrampas[fila, columna] != null); // || con el o nos asiguuramos que nama que una de las dos sea true, pa atras
-
-            int tipoTrampa = random.Next(3);
-            switch (tipoTrampa)
-            {
-                case 0:
-                    MatrizTrampas[fila, columna] = new Trampa("Hechizo Incómodo", "Queda atrapado por un turno", 1);    //aqui se crean(inicializan) las 3 trampas (objetos), no es necesario Trampa trampas, debido a que trampas ya fue declarado en el constructor. En las coordenadas trampas[fila, columna] se creara un objeto de tipo Trampa
-                    break;
-                case 1:
-                    MatrizTrampas[fila, columna] = new Trampa("Trampa para judios", "Tu velocidad se reduce en 1 por 2 turnos", 2);
-                    break;
-                case 2:
-                    MatrizTrampas[fila, columna] = new Trampa("Gas Somnífero", "No puede usar su habilidad por 2 turnos", 2);
-                    break;
-            }
+            } while (MatrizObstaculos[fila, columna] || MatrizTrampas[fila, columna]); // || con el o nos asiguuramos que nama que una de las dos sea true, pa atras
+            MatrizTrampas[fila, columna] = true;
         }
     }
-    private void VisionDeTrampas()
-{
-    for (int i = 0; i < tamano; i++)
-    {
-        for (int j = 0; j < tamano; j++)
-        {
-            if (MatrizTrampas[i, j] != null) 
-            {
-                MatrizTrampas[i, j].Visible = true; //hace que las trampas inicialmente esten invisibles
-                        //arriba                                        //abajo
-                if ((i > 0 && MatrizFichas[i - 1, j] != null) || (i < tamano - 1 && MatrizFichas[i + 1, j] != null) ||
-                    (j > 0 && MatrizFichas[i, j - 1] != null) || (j < tamano - 1 && MatrizFichas[i, j + 1] != null))
-                {       //izquierda                                    //derecha
-                    MatrizTrampas[i, j].Visible = true; // si hay alguna adyacente se vuelve visible
-                }
-            }
-        }
-    }
-}
     public void DestruirObstaculo(int x, int y)
     {
         if (MatrizObstaculos[x, y] == true)
@@ -172,13 +139,34 @@ private void InicializarMatrizObstaculos()
             MatrizFichas[FilaFinal, ColFinal] = MatrizFichas[FilaInicio, ColInicio];
             MatrizFichas[FilaInicio, ColInicio] = null;
             //actualiza despues de moverse
-            VisionDeTrampas();
 
             if (MatrizTrampas[FilaFinal, ColFinal] != null)
             {
-                MatrizTrampas[FilaFinal, ColFinal].AplicarEfecto(MatrizFichas[FilaFinal, ColFinal]);
-                MatrizTrampas[FilaFinal, ColFinal] = null; // cuando te comes una trampa se quita
+                AplicarTrampa(MatrizFichas[FilaFinal, ColFinal]);
+                MatrizTrampas[FilaFinal, ColFinal] = false; // cuando te comes una trampa se quita
             }
         }
     }
+    private void AplicarTrampa(Ficha ficha)
+    {
+        Random random = new Random();
+        int tipoTrampa = random.Next(3);
+        switch(tipoTrampa)
+        {
+            case 0:
+                ficha.Velocidad = 0;
+                Console.WriteLine($"{ficha.Nombre} sentiras que es ser invalido durante un turno");
+                break;
+            case 1:
+                ficha.Velocidad -= 1;
+                ficha.efectoDuracion +=2;
+                Console.WriteLine($"{ficha.Nombre} pierdes 1 de velocidad por 2 turnos. Espabila que la vida te va a comer");
+                break;
+            case 2:
+                ficha.enfriamientoActual += 2;
+                Console.WriteLine($"{ficha.Nombre} pierdes tus poderes durante 2 turnos");
+                break;            
+        }
+    }
 }
+
