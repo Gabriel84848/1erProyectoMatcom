@@ -78,7 +78,7 @@ public class Partida
         List<Ficha> ListaDeFichas = new List<Ficha>
         {
             new Ficha("Cyborg", 3, "Destrucción", 4, -1, -1),
-            new Ficha("Ladrón", 3, "Tomar prestado", 4, -1, -1),
+            new Ficha("Ladrón", 3, "Tomar Prestado", 4, -1, -1),
             new Ficha("Judio", 3, "Magia Negra", 5, -1, -1),
             new Ficha("Mago Brujo", 3, "Hechizo de Novato", 4, -1, -1),
             new Ficha("Zombie Nazi", 2, "Gas Alemán", 4, -1, -1)
@@ -184,7 +184,7 @@ public class Partida
             MostrarEstado();
             if(ficha.enfriamientoActual>0)
             {
-                Console.WriteLine($"Tu habilidad esta en enfriemiento por {ficha.enfriamientoActual} turnos");
+                Console.WriteLine($"Tu habilidad esta en enfriamiento por {ficha.enfriamientoActual} turnos");
             }
             else
             {
@@ -210,11 +210,11 @@ public class Partida
             // mecanica de que el movimiento se ejecute uno a uno en deppendeencia de la velocidad de la ficha
             for (int m = ficha.Velocidad; m > 0; m--)
             {
-                Console.Clear();
+                //Console.Clear();
                 MostrarEstado();
                 if(ficha.enfriamientoActual>0 && m ==ficha.Velocidad) // en el primer movimiento solamente
                 {
-                    Console.WriteLine($"Tu habilidad esta en enfriemiento por {ficha.enfriamientoActual} turnos");
+                    Console.WriteLine($"Tu habilidad esta en enfriamiento por {ficha.enfriamientoActual} turnos");
                 }
 
                 Console.WriteLine($"Te quedan {m} movimientos.");

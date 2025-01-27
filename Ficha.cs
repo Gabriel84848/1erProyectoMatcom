@@ -43,7 +43,10 @@ public class Ficha
                         }
                         else
                         {
-                            Console.WriteLine($"No hay obstáculo en esa posicion");
+                            Console.Clear();
+                            Console.WriteLine($"No hay obstáculo en esa posicion. Presiona cualquier tecla para continuar");
+
+                            Console.ReadKey();
                         }
                         break;
 
@@ -53,38 +56,33 @@ public class Ficha
                         {
                             FichaAfectadaPorMagia.Velocidad =0;
                             FichaAfectadaPorMagia.efectoDuracion = 2;
+                            Console.Clear();
                             Console.WriteLine($"El Judio somete a {FichaAfectadaPorMagia.Nombre} con su Magia Negra y ahora no se puede mover en 2 turnos");
                             Console.WriteLine($"Presiona cualquier tecla para continuat");
                             Console.ReadKey();
                         }
                         else
                         {
-                            Console.WriteLine("No hay nadie para realentizar");
+                            Console.Clear();
+                            Console.WriteLine($"No hay nadie a quien realentizar. Presiona cualquier tecla para continuar");
+                            Console.ReadKey();
                         }
                         break;
 
-                    case "Tomar prestado":
+                    case "Tomar Prestado":
                         if (tablero.MatrizTrampas[objetivoX, objetivoY] == true)
                         {
-                            Random random = new Random();
-                            int nuevoX, nuevoY;
-                            do
-                            {
-                                nuevoX = random.Next(tablero.tamano);
-                                nuevoY = random.Next(tablero.tamano);
-                            } while (tablero.MatrizObstaculos[nuevoX, nuevoY] || tablero.MatrizTrampas[nuevoX, nuevoY] == true);
-
-                            tablero.MatrizTrampas[nuevoX, nuevoY] = tablero.MatrizTrampas[objetivoX, objetivoY];
                             tablero.MatrizTrampas[objetivoX, objetivoY] = false;
                             Console.Clear();
-                            Console.WriteLine($"El ladron toma prestada la trampa de ({objetivoX}, {objetivoY}) y la coloca en ({nuevoX}, {nuevoY})");
+                            Console.WriteLine($"El ladron toma prestada una trampa. No creo que la devuelva)");
                             Console.WriteLine($"Presiona cualquier tecla para continuar");
                             Console.ReadKey();
                         }
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine($"No hay trampa en esa posicion para mover");
+                            Console.WriteLine($"No hay trampa en esa posicion para mover. Presiona cualquier tecla para continuar");
+                            enfriamientoActual =0;
                             Console.ReadKey();
                         }
                         break;
@@ -109,7 +107,9 @@ public class Ficha
                                     }
                                     else
                                     {
-                                        Console.WriteLine($"{ficha.Nombre} ya tiene velocidad 0, no se puede reducir más");
+                                        Console.Clear();
+                                        Console.WriteLine($"{ficha.Nombre} ya tiene velocidad 0, no se puede reducir más. Presiona cualquier tecla para continuar");
+                                        Console.ReadKey();
                                     }
                                 }
                             }
@@ -126,7 +126,9 @@ public class Ficha
                             }
                             else
                             {
-                                Console.WriteLine($"{Nombre} ya tiene velocidad 0, no se puede reducir más");
+                                Console.Clear();
+                                Console.WriteLine($"{Nombre} ya tiene velocidad 0, no se puede reducir más. Presiona cualquier tecla para continuar");
+                                Console.ReadKey();
                             }
                         }
                         break;
@@ -168,12 +170,6 @@ public class Ficha
                 Console.WriteLine($"{Nombre} vuelve a su velocidad original de {velocidadOriginal}");
             }
         }
-    }
-    public void Mover(int nuevoX, int nuevoY)
-    {
-        PosActualX = nuevoX;
-        PosActualY = nuevoY;
-        Console.WriteLine($"{Nombre} se mueve a ({nuevoX}, {nuevoY})");
     }
  private Ficha SeleccionarFicha(Tablero tablero)//metodito para buscar las fichas en el tablero
 {
