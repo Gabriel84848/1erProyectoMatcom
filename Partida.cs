@@ -24,7 +24,7 @@ public class Partida
             ActualizarFichas();
             if(VerificarVictoria())
             {
-                break;   // sale del bucle si alguna fichha llego al destino
+            break;   // sale del bucle si alguna fichha llego al destino
             }
         }
 
@@ -78,8 +78,8 @@ public class Partida
         List<Ficha> ListaDeFichas = new List<Ficha>
         {
             new Ficha("Cyborg", 3, "Destrucción", 4, -1, -1),
-            new Ficha("Ladrón", 3, "Tomar prestado", 2, -1, -1),
-            new Ficha("Judio", 3, "Magia Negra", 2, -1, -1),
+            new Ficha("Ladrón", 3, "Tomar prestado", 4, -1, -1),
+            new Ficha("Judio", 3, "Magia Negra", 5, -1, -1),
             new Ficha("Mago Brujo", 3, "Hechizo de Novato", 4, -1, -1),
             new Ficha("Zombie Nazi", 2, "Gas Alemán", 4, -1, -1)
         };
@@ -127,11 +127,11 @@ public class Partida
                 coordY=29;
                 break;
                 case 2:
-                coordX=0;
-                coordY=29;
+                coordX=29;
+                coordY=0;
                 break;
                 case 3:
-                coordX=0;
+                coordX=29;
                 coordY=29;
                 break;
             }
@@ -181,25 +181,30 @@ public class Partida
         {
             Console.WriteLine($"Turno del {ListaJugadores[i].Nombre}:");
             Ficha ficha = ListaJugadores[i].Ficha; // acceder a la ficha ya asigndada al jugador en cuestion  // Ficha ficha se usa para crear una variable local que guarde la referencia solop para este metodo (se usa ficha en vez de ListaJugadores[i].Ficha)
-        
-            string respuesta;
-            do
+            if(ficha.enfriamientoActual>0)
             {
-                Console.WriteLine("Quieres usar tu habilidad antes de moverte? (SI/NO)");
-                respuesta = Console.ReadLine().ToUpper();
-
-                if(respuesta != "SI"  && respuesta != "NO")
+                Console.WriteLine($"Tu habilidad esta en enfriemiento por {ficha.enfriamientoActual} turnos");
+            }
+            else
+            {
+                string respuesta;
+                do
                 {
-                    Console.WriteLine("Respuesta invalida. Que te cuesta decir SI o NO?");
+                    Console.WriteLine("Quieres usar tu habilidad antes de moverte? (SI/NO)");
+                    respuesta = Console.ReadLine().ToUpper();
+
+                    if(respuesta != "SI"  && respuesta != "NO")
+                    {
+                        Console.WriteLine("Respuesta invalida. Que te cuesta decir SI o NO?");
+                    }
+                }
+                while(respuesta  != "SI" && respuesta != "NO");
+
+                if (respuesta == "SI")
+                {
+                    UsarHabilidad(ficha, tablero);
                 }
             }
-            while(respuesta  != "SI" && respuesta != "NO");
-
-            if (respuesta == "SI")
-            {
-                UsarHabilidad(ficha, tablero);
-            }
-
             // mecanica de que el movimiento se ejecute uno a uno en deppendeencia de la velocidad de la ficha
             for (int m = ficha.Velocidad; m > 0; m--)
             {
@@ -220,12 +225,12 @@ public class Partida
     {
         case "Destrucción":
         case "Tomar Prestado":
-        case "Robar":
             // Las habilidades que requieren una posicion especifica
             (int objetivoX, int objetivoY) = LeerCoordenadasHabilidad(ficha);
             ficha.UsarHabilidadDelPlayer(tablero, objetivoX, objetivoY);
             break;
 
+        case "Magia Negra":
         case "Hechizo de Novato":
         case "Gas Alemán":
             // Las habilidades que no requieren una posicion especifica
@@ -288,7 +293,7 @@ private bool LeerMovimiento(Ficha ficha, Tablero tablero)
 }
 private (int objetivoX, int objetivoY) LeerCoordenadasHabilidad(Ficha ficha)
 {
-    Console.WriteLine("Selecciona la ficha usando");
+    Console.WriteLine("Selecciona la casilla objetivo usando las flechas direccionales");
     var direccion = Console.ReadKey(true).Key;
     int DirX;  //inicializar, si no se jode
     int DirY;

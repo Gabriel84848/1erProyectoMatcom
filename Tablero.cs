@@ -139,11 +139,14 @@ private void InicializarMatrizObstaculos()
             MatrizFichas[FilaFinal, ColFinal] = MatrizFichas[FilaInicio, ColInicio];
             MatrizFichas[FilaInicio, ColInicio] = null;
             //actualiza despues de moverse
-
+            
             if (MatrizTrampas[FilaFinal, ColFinal] == true)
             {
-                AplicarTrampa(MatrizFichas[FilaFinal, ColFinal]);
-                MatrizTrampas[FilaFinal, ColFinal] = false; // cuando te comes una trampa se quita
+                if (MatrizTrampas[FilaFinal, ColFinal] == true)
+                {
+                    AplicarTrampa(MatrizFichas[FilaFinal, ColFinal]);
+                    MatrizTrampas[FilaFinal, ColFinal] = false; // cuando te comes una trampa se quita
+                }
             }
         }
     }
@@ -155,16 +158,16 @@ private void InicializarMatrizObstaculos()
         {
             case 0:
                 ficha.Velocidad = 0;
-                Console.WriteLine($"{ficha.Nombre} sentiras que es ser invalido durante un turno");
+                Console.WriteLine($"{ficha.Nombre} ha caido en una trampa para judios no podras moverte durante un turno");
                 break;
             case 1:
                 ficha.Velocidad -= 1;
                 ficha.efectoDuracion +=2;
-                Console.WriteLine($"{ficha.Nombre} pierdes 1 de velocidad por 2 turnos. Espabila que la vida te va a comer");
+                Console.WriteLine($"{ficha.Nombre} a pisado moco de slime, pierdes 1 de velocidad por 2 turnos.");
                 break;
             case 2:
                 ficha.enfriamientoActual += 2;
-                Console.WriteLine($"{ficha.Nombre} pierdes tus poderes durante 2 turnos");
+                Console.WriteLine($"{ficha.Nombre} a tocado un artefacto de dudosa procedencia, pierdes tus poderes durante 2 turnos");
                 break;            
         }
     }

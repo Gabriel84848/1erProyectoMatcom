@@ -9,7 +9,7 @@ public class Ficha
     private int velocidadOriginal; // guarda el valor fijo de la velocidad original
     public int PosActualX;
     public int PosActualY;
-    public bool VerSiMagiaNegraEstaActivaEnElTurnoActual;
+    
 
     public Ficha(string nombre, int velocidad, string habilidad, int enfriamiento, int posX, int posY)
     {
@@ -28,8 +28,6 @@ public class Ficha
     {
         if (enfriamientoActual <= 0)
         {
-            Console.WriteLine($"{Nombre} usa su habilidad: {Habilidad}");
-
             // Verifica si la casilla objetivo sea adyacente, sin embargo ya no es 100%  necesario
             if (Math.Abs(objetivoX - PosActualX) <= 1 && Math.Abs(objetivoY - PosActualY) <= 1)
             {
@@ -39,17 +37,26 @@ public class Ficha
                         if (tablero.MatrizObstaculos[objetivoX, objetivoY])  //objetivoxx y objetivoy creare un metodo mas general para seleccionar donde usar la hab(clase juego)
                         {
                             tablero.DestruirObstaculo(objetivoX, objetivoY);
-                            Console.WriteLine($"{Nombre} destruye el obstáculo en ({objetivoX}, {objetivoY})");
+                            Console.WriteLine($"Cyborg destruye el obstáculo en seleccionado)");
                         }
                         else
                         {
-                            Console.WriteLine($"No hay obstáculo en ({objetivoX}, {objetivoY})");
+                            Console.WriteLine($"No hay obstáculo en esa posicion");
                         }
                         break;
 
                     case "Magia Negra":
-                        VerSiMagiaNegraEstaActivaEnElTurnoActual = true;
-                        Console.WriteLine($"El Judio esta usando magia negra y prodra reflejar efectos de las trampa que toque");
+                        Ficha FichaAfectadaPorMagia = SeleccionarFicha(tablero); //elegir la ficha
+                        if (FichaAfectadaPorMagia != null)
+                        {
+                            FichaAfectadaPorMagia.Velocidad =0;
+                            FichaAfectadaPorMagia.efectoDuracion = 2;
+                            Console.WriteLine($"El Judio somete a {FichaAfectadaPorMagia.Nombre} con su Magia Negra y ahora no se puede mover en 2 turnos");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay nadie para realentizar");
+                        }
                         break;
 
                     case "Tomar prestado":
@@ -65,11 +72,11 @@ public class Ficha
 
                             tablero.MatrizTrampas[nuevoX, nuevoY] = tablero.MatrizTrampas[objetivoX, objetivoY];
                             tablero.MatrizTrampas[objetivoX, objetivoY] = false;
-                            Console.WriteLine($"{Nombre} recoloca la trampa de ({objetivoX}, {objetivoY}) a ({nuevoX}, {nuevoY})");
+                            Console.WriteLine($"El ladron toma prestada la trampa de ({objetivoX}, {objetivoY}) y la coloca en ({nuevoX}, {nuevoY})");
                         }
                         else
                         {
-                            Console.WriteLine($"No hay trampa en ({objetivoX}, {objetivoY}) para mover");
+                            Console.WriteLine($"No hay trampa en esa posicion para mover");
                         }
                         break;
 
@@ -154,35 +161,47 @@ public class Ficha
         PosActualY = nuevoY;
         Console.WriteLine($"{Nombre} se mueve a ({nuevoX}, {nuevoY})");
     }
-    public void ReflejarTrampa(Tablero tablero, List<Jugador> jugadorrandom)
+ private Ficha SeleccionarFicha(Tablero tablero)//metodito para buscar las fichas en el tablero
+{
+    List<Ficha> fichasEnTablero = new List<Ficha>();
+    for (int i = 0; i < tablero.tamano; i++)
     {
-        if (VerSiMagiaNegraEstaActivaEnElTurnoActual)
-        {  
-            Random random = new Random();
-            List<Jugador> DemasJugadoresMenosThis = new List<Jugador>(); //pasar los demas jug a otra lista
-
-            foreach (Jugador jugador in jugadorrandom)
+        for (int j = 0; j < tablero.tamano; j++)
+        {
+            if (tablero.MatrizFichas[i, j] != null && tablero.MatrizFichas[i, j] != this)
             {
-                if (jugador.Ficha != this)
-                {
-                    DemasJugadoresMenosThis.Add(jugador);
-                }
+                fichasEnTablero.Add(tablero.MatrizFichas[i, j]);
             }
-            if (DemasJugadoresMenosThis.Count > 0)
-            {
-                int NumeroRandom = random.Next(DemasJugadoresMenosThis.Count);
-                Jugador jugadorAleatorio = DemasJugadoresMenosThis[NumeroRandom];
-                Ficha fichaAleatoria = jugadorAleatorio.Ficha;
-
-                Console.WriteLine($"El Judio refleja la trampa a la ficha {fichaAleatoria.Nombre} del jugador {jugadorAleatorio.Nombre}");
-                tablero.AplicarTrampa(fichaAleatoria); 
-            }
-            else
-            {
-                Console.WriteLine("No hay otros jugadores en la partida, el efecto de la trampa es nulo.");
-            }
-            VerSiMagiaNegraEstaActivaEnElTurnoActual = false;
         }
     }
+    if (fichasEnTablero.Count == 0)
+    {
+        Console.WriteLine("No hay fichas disponibles para seleccionar.");
+        return null;
+    }
 
+    Console.WriteLine("Selecciona la ficha para usar Magia Negra:");
+    for (int k = 0; k < fichasEnTablero.Count; k++)
+    {
+        Console.WriteLine($"{k}. {fichasEnTablero[k].Nombre}");
+    }
+
+    int numDeLista;
+    bool VerSiEsValidaLaEntrada;
+    do
+    {
+        string entrada = Console.ReadLine();
+        VerSiEsValidaLaEntrada = int.TryParse(entrada, out numDeLista) 
+        && numDeLista >= 0 
+        && numDeLista < fichasEnTablero.Count;
+
+        if (!VerSiEsValidaLaEntrada)
+        {
+            Console.WriteLine("Pon un numero valido.");
+        }
+    } while (!VerSiEsValidaLaEntrada);
+
+    return fichasEnTablero[numDeLista];
+}
+ 
 }
