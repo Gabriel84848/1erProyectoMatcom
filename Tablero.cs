@@ -139,14 +139,10 @@ private void InicializarMatrizObstaculos()
             MatrizFichas[FilaFinal, ColFinal] = MatrizFichas[FilaInicio, ColInicio];
             MatrizFichas[FilaInicio, ColInicio] = null;
             //actualiza despues de moverse
-            
             if (MatrizTrampas[FilaFinal, ColFinal] == true)
             {
-                if (MatrizTrampas[FilaFinal, ColFinal] == true)
-                {
-                    AplicarTrampa(MatrizFichas[FilaFinal, ColFinal]);
-                    MatrizTrampas[FilaFinal, ColFinal] = false; // cuando te comes una trampa se quita
-                }
+                AplicarTrampa(MatrizFichas[FilaFinal, ColFinal]);
+                MatrizTrampas[FilaFinal, ColFinal] = false; // cuando te comes una trampa se quita
             }
         }
     }
@@ -158,7 +154,7 @@ private void InicializarMatrizObstaculos()
         {
             case 0:
                 ficha.Velocidad = 0;
-                Console.WriteLine($"{ficha.Nombre} ha caido en una trampa para judios no podras moverte durante un turno");
+                Console.WriteLine($"{ficha.Nombre} ha caido en una trampa para judios no podras moverte en tu siguiente turno");
                 break;
             case 1:
                 ficha.Velocidad -= 1;
@@ -170,5 +166,7 @@ private void InicializarMatrizObstaculos()
                 Console.WriteLine($"{ficha.Nombre} a tocado un artefacto de dudosa procedencia, pierdes tus poderes durante 2 turnos");
                 break;            
         }
+        Console.WriteLine($"Presiona cualquier tecla para continuar");
+        Console.ReadKey();
     }
 }

@@ -215,7 +215,7 @@ public class Partida
                 {
                     m++; // si fallo algo devuelve una m para que no se coma el turno
                 }
-                
+                MostrarEstado();
             }
         }
     }
