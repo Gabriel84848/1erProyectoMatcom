@@ -35,9 +35,11 @@ public class Ficha
                 {
                     case "Destrucción":
                         if (tablero.MatrizObstaculos[objetivoX, objetivoY])  //objetivoxx y objetivoy creare un metodo mas general para seleccionar donde usar la hab(clase juego)
-                        {
+                        {   
+                            Console.Clear();
                             tablero.DestruirObstaculo(objetivoX, objetivoY);
-                            Console.WriteLine($"Cyborg destruye el obstáculo en seleccionado)");
+                            Console.WriteLine($"Cyborg destruye el obstáculo seleccionado. Presiona cualquier tecla para continuar)");
+                            Console.ReadKey();
                         }
                         else
                         {
@@ -52,6 +54,8 @@ public class Ficha
                             FichaAfectadaPorMagia.Velocidad =0;
                             FichaAfectadaPorMagia.efectoDuracion = 2;
                             Console.WriteLine($"El Judio somete a {FichaAfectadaPorMagia.Nombre} con su Magia Negra y ahora no se puede mover en 2 turnos");
+                            Console.WriteLine($"Presiona cualquier tecla para continuat");
+                            Console.ReadKey();
                         }
                         else
                         {
@@ -72,11 +76,16 @@ public class Ficha
 
                             tablero.MatrizTrampas[nuevoX, nuevoY] = tablero.MatrizTrampas[objetivoX, objetivoY];
                             tablero.MatrizTrampas[objetivoX, objetivoY] = false;
+                            Console.Clear();
                             Console.WriteLine($"El ladron toma prestada la trampa de ({objetivoX}, {objetivoY}) y la coloca en ({nuevoX}, {nuevoY})");
+                            Console.WriteLine($"Presiona cualquier tecla para continuar");
+                            Console.ReadKey();
                         }
                         else
                         {
+                            Console.Clear();
                             Console.WriteLine($"No hay trampa en esa posicion para mover");
+                            Console.ReadKey();
                         }
                         break;
 
@@ -94,7 +103,9 @@ public class Ficha
                                     {
                                         ficha.Velocidad -= 1; // Reducir velocidad
                                         ficha.efectoDuracion = 2; // Aplicar durante 2 turnos
-                                        Console.WriteLine($"{ficha.Nombre} es ralentizado por 2 turnos");
+                                        Console.Clear();
+                                        Console.WriteLine($"{ficha.Nombre} es ralentizado por 2 turnos. Presiona cualquier tecla para continuar.");
+                                        Console.ReadKey();
                                     }
                                     else
                                     {
@@ -109,7 +120,9 @@ public class Ficha
                             {
                                 Velocidad -= 1; // Reducir velocidad
                                 efectoDuracion = 2; // Aplicar durante 2 turnos
-                                Console.WriteLine($"{Nombre} se ralentiza a sí mismo por 2 turnos");
+                                Console.Clear();
+                                Console.WriteLine($"{Nombre} se ralentiza a sí mismo por 2 turnos. Presiona cualquier tecla para continuar.");
+                                Console.ReadKey();
                             }
                             else
                             {
@@ -122,7 +135,8 @@ public class Ficha
                         Velocidad += 2; // Aumenta la velocidad en 2
                         efectoDuracion = 2; // El efecto dura 2 turnos
                         Console.Clear();
-                        Console.WriteLine($"{Nombre} aumenta su velocidad a {Velocidad} por 2 turnos");
+                        Console.WriteLine($"{Nombre} aumenta su velocidad a {Velocidad} por 2 turnos. Presiona cualquier tecla para continuar");
+                        Console.ReadKey();
                         break;
                 }
 

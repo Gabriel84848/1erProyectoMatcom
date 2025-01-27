@@ -19,7 +19,7 @@ public class Partida
 
         while (true) // Bucle principal del juego
         {
-            MostrarEstado();
+           // MostrarEstado();
             RealizarTurno();
             ActualizarFichas();
             if(VerificarVictoria())
@@ -144,8 +144,7 @@ public class Partida
     }
     private void MostrarEstado()
     {
-        int PosX = 24;
-        int PosY = 12;
+        //Console.Clear();
         Console.WriteLine();
         for (int i = 0; i < tablero.tamano; i++)
         {
@@ -179,8 +178,10 @@ public class Partida
     {
         for (int i = 0; i < numJugadores; i++)
         {
-            Console.WriteLine($"Turno del {ListaJugadores[i].Nombre}:");
             Ficha ficha = ListaJugadores[i].Ficha; // acceder a la ficha ya asigndada al jugador en cuestion  // Ficha ficha se usa para crear una variable local que guarde la referencia solop para este metodo (se usa ficha en vez de ListaJugadores[i].Ficha)
+            Console.Clear();
+            Console.WriteLine($"Turno del {ListaJugadores[i].Nombre}:");
+            MostrarEstado();
             if(ficha.enfriamientoActual>0)
             {
                 Console.WriteLine($"Tu habilidad esta en enfriemiento por {ficha.enfriamientoActual} turnos");
@@ -202,20 +203,27 @@ public class Partida
 
                 if (respuesta == "SI")
                 {
+                    MostrarEstado();
                     UsarHabilidad(ficha, tablero);
                 }
             }
             // mecanica de que el movimiento se ejecute uno a uno en deppendeencia de la velocidad de la ficha
             for (int m = ficha.Velocidad; m > 0; m--)
             {
-                Console.WriteLine($"Te quedan {m} movimientos.");
+                Console.Clear();
                 MostrarEstado();
-                // Llama al metodo que mueve la ficha
+                if(ficha.enfriamientoActual>0 && m ==ficha.Velocidad) // en el primer movimiento solamente
+                {
+                    Console.WriteLine($"Tu habilidad esta en enfriemiento por {ficha.enfriamientoActual} turnos");
+                }
+
+                Console.WriteLine($"Te quedan {m} movimientos.");
+
                 if(!LeerMovimiento(ficha, tablero))
                 {
                     m++; // si fallo algo devuelve una m para que no se coma el turno
                 }
-                MostrarEstado();
+                //MostrarEstado();
             }
         }
     }
@@ -293,6 +301,8 @@ private bool LeerMovimiento(Ficha ficha, Tablero tablero)
 }
 private (int objetivoX, int objetivoY) LeerCoordenadasHabilidad(Ficha ficha)
 {
+    Console.Clear();
+    MostrarEstado();
     Console.WriteLine("Selecciona la casilla objetivo usando las flechas direccionales");
     var direccion = Console.ReadKey(true).Key;
     int DirX;  //inicializar, si no se jode
