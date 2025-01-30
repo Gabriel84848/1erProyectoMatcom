@@ -45,17 +45,17 @@ public class Partida
     }
     public void CantDeJugadores()
     {
-        Console.WriteLine("Ingresa la cantidad de jugadores (máximo 4):");
+        Console.WriteLine("Ingresa la cantidad de jugadores entre 2 y 4:");
         int cantidad;
         bool VerSiEsValidaLaEntrada;
         do
         {
             string entrada = Console.ReadLine();
-            VerSiEsValidaLaEntrada = int.TryParse(entrada, out cantidad) && cantidad > 0 && cantidad <= 4;
+            VerSiEsValidaLaEntrada = int.TryParse(entrada, out cantidad) && cantidad >= 2 && cantidad <= 4;
 
             if (VerSiEsValidaLaEntrada == false)
             {
-                Console.WriteLine("Entrada inválida. Por favor, ingresa un número entre 1 y 4:");
+                Console.WriteLine("Entrada inválida. Por favor, ingresa un número entre 2 y 4:");
             }
         }
         while (!VerSiEsValidaLaEntrada);
@@ -88,31 +88,49 @@ public class Partida
         // for principal para aasignar una ficha a cada jugador (1 vez por cada jugador)
         for (int i = 0; i < numJugadores; i++)  
         {
-            Console.WriteLine($"Jugador {i + 1}, selecciona una ficha:");
-            for (int j = 0; j < ListaDeFichas.Count; j++)
+            int fichaQueEstaSiendoSeleccionada = 0;
+            bool fichaQueHaSidoSeleccionada = false;
+            
+            while (!fichaQueHaSidoSeleccionada)
             {
-                Console.WriteLine($"{j}. {ListaDeFichas[j].Nombre}"); //muestra las fichas para seleeccionar
-            }
-
-            int NumSeleccionado; // Inicializar seleccion con un valor por defecto 0
-            bool VerSiEsValidaLaEntrada;  // se inicializa en false
-
-            do
-            {
-                Console.WriteLine("Selecciona una ficha por su numero en la lista:");
-                string entrada = Console.ReadLine();
-                //el TryParse trata de convertir la entreda a entero, si lo logra VerSiEsValidaLaEntrada pasa atrue y out le pasa el entero a NumSeleccionado
-                VerSiEsValidaLaEntrada = int.TryParse(entrada, out  NumSeleccionado) && NumSeleccionado >= 0 && NumSeleccionado < ListaDeFichas.Count;
-                
-                if (VerSiEsValidaLaEntrada == false) //se ejecuta si lo que introducen es invalido
+                Console.Clear();
+                Console.WriteLine($"Jugador {i + 1}, selecciona una ficha usando las flechas direccionales y pulsando ENTER en tu seleccion");
+                for(int j=0; j<ListaDeFichas.Count; j++)
                 {
-                    Console.WriteLine("entrada invalida. Usa los numeros de la lista para seleccionar tu ficha");
+                    if(j== fichaQueEstaSiendoSeleccionada)
+                    {
+                        Console.WriteLine($"> {ListaDeFichas[j].Nombre}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"  {ListaDeFichas[j].Nombre}");
+                    }
+                }
+                var key= Console.ReadKey(true).Key;
+
+                switch(key)
+                {
+                    case ConsoleKey.UpArrow:
+                    if(fichaQueEstaSiendoSeleccionada>0)
+                    {
+                        fichaQueEstaSiendoSeleccionada --;
+                    }
+                    break;
+
+                    case ConsoleKey.DownArrow:
+                    if(fichaQueEstaSiendoSeleccionada< ListaDeFichas.Count -1)
+                    {
+                        fichaQueEstaSiendoSeleccionada ++;
+                    }
+                    break;
+
+                    case ConsoleKey.Enter:
+                    fichaQueHaSidoSeleccionada = true;
+                    break;
                 }
             }
-            while (!VerSiEsValidaLaEntrada); // si VerSiEsValidaLaEntrada es false ent el while toma true y se repite el bucle
-            
-            Ficha ficha = ListaDeFichas[NumSeleccionado];   // asigna a ficha, la que selecciono el jugador 
-            ListaDeFichas.RemoveAt(NumSeleccionado); // eliminar la ficha seleccionada para que no se repita usando RemoveaAt (metodo de List)
+            Ficha ficha = ListaDeFichas[fichaQueEstaSiendoSeleccionada];   // asigna a ficha, la que selecciono el jugador 
+            ListaDeFichas.RemoveAt(fichaQueEstaSiendoSeleccionada); // eliminar la ficha seleccionada para que no se repita usando RemoveaAt (metodo de List)
 
             int coordX=0;
             int coordY=0;
@@ -210,7 +228,7 @@ public class Partida
             // mecanica de que el movimiento se ejecute uno a uno en deppendeencia de la velocidad de la ficha
             for (int m = ficha.Velocidad; m > 0; m--)
             {
-                //Console.Clear();
+                Console.Clear();
                 MostrarEstado();
                 if(ficha.enfriamientoActual>0 && m ==ficha.Velocidad) // en el primer movimiento solamente
                 {
@@ -280,7 +298,7 @@ private bool LeerMovimiento(Ficha ficha, Tablero tablero)
     int nuevoY = ficha.PosActualY + DirY;
 
     // Verificar si la nueva posicion esta dentro del tablero y no es un obstaculo
-    if (nuevoX >= 0 && nuevoX < tablero.tamano && nuevoY >= 0 && nuevoY < tablero.tamano && !tablero.MatrizObstaculos[nuevoX, nuevoY])
+    if (nuevoX >= 0 && nuevoX < tablero.tamano && nuevoY >= 0 && nuevoY < tablero.tamano && !tablero.MatrizObstaculos[nuevoX, nuevoY] && tablero.MatrizFichas[nuevoX, nuevoY]==null)
     {
         // Mover la ficha a la nueva posicion con el metodo de tablero
         tablero.MoverFicha(ficha.PosActualX, ficha.PosActualY, nuevoX, nuevoY);

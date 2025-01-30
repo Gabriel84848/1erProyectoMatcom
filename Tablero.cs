@@ -19,7 +19,7 @@ private void InicializarMatrizObstaculos()
 {
     string[] patrones = {
         "......0...0........0...0......",
-        "000.0.00.0000.00.0000.00.0.000",
+        ".00.0.00.0000.00.0000.00.0.00.",
         "....0.....0........0.....0....",
         ".00.0000000.000000.0000000.00.",
         "..0.0.0.....0.00.0.....0.0.0..",
@@ -46,7 +46,7 @@ private void InicializarMatrizObstaculos()
         "..0.0.0.....0.00.0.....0.0.0..",
         ".00.0000000.000000.0000000.00.",
         "....0.....0........0.....0....",
-        "000.0.00.0000.00.0000.00.0.000",
+        ".00.0.00.0000.00.0000.00.0.00.",
         "......0...0........0...0......"
     };
 
@@ -121,7 +121,7 @@ private void InicializarMatrizObstaculos()
             {
                 fila = random.Next(tamano);
                 columna = random.Next(tamano);
-            } while (MatrizObstaculos[fila, columna] || MatrizTrampas[fila, columna]); // || con el o nos asiguuramos que nama que una de las dos sea true, pa atras
+            } while (MatrizObstaculos[fila, columna] || MatrizTrampas[fila, columna] || (fila==0 && columna==0) || (fila==0 && columna==29) || (fila==29 && columna==0) || (fila==29 && columna==29)); // || con el o nos asiguuramos que nama que una de las dos sea true, pa atras
             MatrizTrampas[fila, columna] = true;
         }
     }

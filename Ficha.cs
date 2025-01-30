@@ -1,3 +1,5 @@
+using Spectre.Console;
+
 public class Ficha
 { 
     public string Nombre;
@@ -40,12 +42,12 @@ public class Ficha
                             tablero.DestruirObstaculo(objetivoX, objetivoY);
                             Console.WriteLine($"Cyborg destruye el obstáculo seleccionado. Presiona cualquier tecla para continuar)");
                             Console.ReadKey();
+                            enfriamientoActual=Enfriamiento;
                         }
                         else
                         {
                             Console.Clear();
                             Console.WriteLine($"No hay obstáculo en esa posicion. Presiona cualquier tecla para continuar");
-
                             Console.ReadKey();
                         }
                         break;
@@ -58,7 +60,7 @@ public class Ficha
                             FichaAfectadaPorMagia.efectoDuracion = 2;
                             Console.Clear();
                             Console.WriteLine($"El Judio somete a {FichaAfectadaPorMagia.Nombre} con su Magia Negra y ahora no se puede mover en 2 turnos");
-                            Console.WriteLine($"Presiona cualquier tecla para continuat");
+                            Console.WriteLine($"Presiona cualquier tecla para continuar");
                             Console.ReadKey();
                         }
                         else
@@ -67,6 +69,7 @@ public class Ficha
                             Console.WriteLine($"No hay nadie a quien realentizar. Presiona cualquier tecla para continuar");
                             Console.ReadKey();
                         }
+                        enfriamientoActual=Enfriamiento;
                         break;
 
                     case "Tomar Prestado":
@@ -77,13 +80,14 @@ public class Ficha
                             Console.WriteLine($"El ladron toma prestada una trampa. No creo que la devuelva)");
                             Console.WriteLine($"Presiona cualquier tecla para continuar");
                             Console.ReadKey();
+                            enfriamientoActual = Enfriamiento;
                         }
                         else
                         {
                             Console.Clear();
                             Console.WriteLine($"No hay trampa en esa posicion para mover. Presiona cualquier tecla para continuar");
-                            enfriamientoActual =0;
                             Console.ReadKey();
+                            enfriamientoActual = 0;
                         }
                         break;
 
@@ -130,6 +134,7 @@ public class Ficha
                                 Console.WriteLine($"{Nombre} ya tiene velocidad 0, no se puede reducir más. Presiona cualquier tecla para continuar");
                                 Console.ReadKey();
                             }
+                            enfriamientoActual=Enfriamiento;
                         }
                         break;
 
@@ -139,10 +144,10 @@ public class Ficha
                         Console.Clear();
                         Console.WriteLine($"{Nombre} aumenta su velocidad a {Velocidad} por 2 turnos. Presiona cualquier tecla para continuar");
                         Console.ReadKey();
+                        enfriamientoActual = Enfriamiento;
                         break;
                 }
-
-                enfriamientoActual = Enfriamiento;
+                
             }
             else
             {
