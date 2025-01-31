@@ -7,7 +7,7 @@ public class Tablero
     public bool[,] MatrizTrampas; 
     public Ficha[,] MatrizFichas; 
 
-    public Tablero()  //contrucctor
+    public Tablero()
     {
         tamano = 30;
         MatrizObstaculos = new bool[tamano, tamano];
@@ -154,6 +154,7 @@ private void InicializarMatrizObstaculos()
         {
             case 0:
                 ficha.Velocidad = 0;
+                ficha.efectoDuracion = 2;
                 Console.WriteLine($"{ficha.Nombre} ha caido en una trampa para judios no podras moverte en tu siguiente turno");
                 break;
             case 1:
@@ -164,7 +165,7 @@ private void InicializarMatrizObstaculos()
             case 2:
                 ficha.enfriamientoActual += 2;
                 Console.WriteLine($"{ficha.Nombre} a tocado un artefacto de dudosa procedencia, pierdes tus poderes durante 2 turnos");
-                break;            
+                break;          
         }
         Console.WriteLine($"Presiona cualquier tecla para continuar");
         Console.ReadKey();

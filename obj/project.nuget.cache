@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "M/+lzORD5co=",
+  "dgSpecHash": "U9SegV/5wXM=",
   "success": true,
-  "projectFilePath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\ConsoleApp1\\ConsoleApp1.csproj",
+  "projectFilePath": "c:\\Users\\gabri\\OneDrive\\Escritorio\\C# YT\\testeo 2.0\\AAAAAAversion actual\\Fear and Hunger\\ConsoleApp1.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\gabri\\.nuget\\packages\\figgle\\0.5.1\\figgle.0.5.1.nupkg.sha512",
     "C:\\Users\\gabri\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
   ],
   "logs": []

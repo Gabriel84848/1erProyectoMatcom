@@ -40,14 +40,14 @@ public class Ficha
                         {   
                             Console.Clear();
                             tablero.DestruirObstaculo(objetivoX, objetivoY);
-                            Console.WriteLine($"Cyborg destruye el obstáculo seleccionado. Presiona cualquier tecla para continuar)");
+                            AnsiConsole.MarkupLine($"[green]Cyborg destruye el obstáculo seleccionado. Presiona cualquier tecla para continuar)[/]");
                             Console.ReadKey();
                             enfriamientoActual=Enfriamiento;
                         }
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine($"No hay obstáculo en esa posicion. Presiona cualquier tecla para continuar");
+                            AnsiConsole.MarkupLine($"[red]No hay obstáculo en esa posicion. Presiona cualquier tecla para continuar[/]");
                             Console.ReadKey();
                         }
                         break;
@@ -59,14 +59,14 @@ public class Ficha
                             FichaAfectadaPorMagia.Velocidad =0;
                             FichaAfectadaPorMagia.efectoDuracion = 2;
                             Console.Clear();
-                            Console.WriteLine($"El Judio somete a {FichaAfectadaPorMagia.Nombre} con su Magia Negra y ahora no se puede mover en 2 turnos");
+                            AnsiConsole.MarkupLine($"[green]El Judio somete a {FichaAfectadaPorMagia.Nombre} con su Magia Negra y ahora no se puede mover en 2 turnos[/]");
                             Console.WriteLine($"Presiona cualquier tecla para continuar");
                             Console.ReadKey();
                         }
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine($"No hay nadie a quien realentizar. Presiona cualquier tecla para continuar");
+                            Console.WriteLine($"No hay nadie a quien realentizar. Presiona cualquier tecla para continuar"); // esto no pasa desde que actualizaste 2 a 4
                             Console.ReadKey();
                         }
                         enfriamientoActual=Enfriamiento;
@@ -77,7 +77,7 @@ public class Ficha
                         {
                             tablero.MatrizTrampas[objetivoX, objetivoY] = false;
                             Console.Clear();
-                            Console.WriteLine($"El ladron toma prestada una trampa. No creo que la devuelva)");
+                            AnsiConsole.MarkupLine($"[green]El ladron toma prestada una trampa. No creo que la devuelva)[/]");
                             Console.WriteLine($"Presiona cualquier tecla para continuar");
                             Console.ReadKey();
                             enfriamientoActual = Enfriamiento;
@@ -85,7 +85,7 @@ public class Ficha
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine($"No hay trampa en esa posicion para mover. Presiona cualquier tecla para continuar");
+                            AnsiConsole.MarkupLine($"[red]No hay trampa en esa posicion para mover. Presiona cualquier tecla para continuar[/]");
                             Console.ReadKey();
                             enfriamientoActual = 0;
                         }
@@ -106,13 +106,13 @@ public class Ficha
                                         ficha.Velocidad -= 1; // Reducir velocidad
                                         ficha.efectoDuracion = 2; // Aplicar durante 2 turnos
                                         Console.Clear();
-                                        Console.WriteLine($"{ficha.Nombre} es ralentizado por 2 turnos. Presiona cualquier tecla para continuar.");
+                                        AnsiConsole.MarkupLine($"[green]{ficha.Nombre} es ralentizado por 2 turnos. Presiona cualquier tecla para continuar.[/]");
                                         Console.ReadKey();
                                     }
                                     else
                                     {
                                         Console.Clear();
-                                        Console.WriteLine($"{ficha.Nombre} ya tiene velocidad 0, no se puede reducir más. Presiona cualquier tecla para continuar");
+                                        AnsiConsole.MarkupLine($"[red]{ficha.Nombre} ya tiene velocidad 0, no se puede reducir más. Presiona cualquier tecla para continuar[/]");
                                         Console.ReadKey();
                                     }
                                 }
@@ -125,7 +125,7 @@ public class Ficha
                                 Velocidad -= 1; // Reducir velocidad
                                 efectoDuracion = 2; // Aplicar durante 2 turnos
                                 Console.Clear();
-                                Console.WriteLine($"{Nombre} se ralentiza a sí mismo por 2 turnos. Presiona cualquier tecla para continuar.");
+                                AnsiConsole.MarkupLine($"[red]{Nombre} se ralentiza a sí mismo por 2 turnos. Presiona cualquier tecla para continuar.[/]");
                                 Console.ReadKey();
                             }
                             else
@@ -142,7 +142,7 @@ public class Ficha
                         Velocidad += 2; // Aumenta la velocidad en 2
                         efectoDuracion = 2; // El efecto dura 2 turnos
                         Console.Clear();
-                        Console.WriteLine($"{Nombre} aumenta su velocidad a {Velocidad} por 2 turnos. Presiona cualquier tecla para continuar");
+                        AnsiConsole.MarkupLine($"[green]{Nombre} aumenta su velocidad a {Velocidad} por 2 turnos. Presiona cualquier tecla para continuar[/]");
                         Console.ReadKey();
                         enfriamientoActual = Enfriamiento;
                         break;
@@ -172,7 +172,6 @@ public class Ficha
             if (efectoDuracion == 0)
             {
                 Velocidad = velocidadOriginal; // Restaurar la velocidad original después de que el efecto expire
-                Console.WriteLine($"{Nombre} vuelve a su velocidad original de {velocidadOriginal}");
             }
         }
     }
@@ -189,13 +188,7 @@ public class Ficha
             }
         }
     }
-    if (fichasEnTablero.Count == 0)
-    {
-        Console.WriteLine("No hay fichas disponibles para seleccionar.");
-        return null;
-    }
-
-    Console.WriteLine("Selecciona la ficha para usar Magia Negra:");
+    AnsiConsole.MarkupLine("[green]Selecciona la ficha para usar Magia Negra escribiendo su numero:[/]");
     for (int k = 0; k < fichasEnTablero.Count; k++)
     {
         Console.WriteLine($"{k}. {fichasEnTablero[k].Nombre}");
@@ -212,7 +205,7 @@ public class Ficha
 
         if (!VerSiEsValidaLaEntrada)
         {
-            Console.WriteLine("Pon un numero valido.");
+            AnsiConsole.MarkupLine("[red]Pon un numero valido.[/]");
         }
     } while (!VerSiEsValidaLaEntrada);
 

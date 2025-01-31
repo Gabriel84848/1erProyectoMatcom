@@ -45,7 +45,7 @@ public class Partida
     }
     public void CantDeJugadores()
     {
-        Console.WriteLine("Ingresa la cantidad de jugadores entre 2 y 4:");
+        AnsiConsole.MarkupLine("[purple]Ingresa la cantidad de jugadores entre 2 y 4:[/]");
         int cantidad;
         bool VerSiEsValidaLaEntrada;
         do
@@ -94,7 +94,8 @@ public class Partida
             while (!fichaQueHaSidoSeleccionada)
             {
                 Console.Clear();
-                Console.WriteLine($"Jugador {i + 1}, selecciona una ficha usando las flechas direccionales y pulsando ENTER en tu seleccion");
+                AnsiConsole.Markup($"[yellow]Jugador {i + 1}[/]");
+                AnsiConsole.MarkupLine($"[purple], selecciona una ficha usando las flechas direccionales y pulsando ENTER en tu seleccion[/]");
                 for(int j=0; j<ListaDeFichas.Count; j++)
                 {
                     if(j== fichaQueEstaSiendoSeleccionada)
@@ -192,14 +193,14 @@ public class Partida
             Console.WriteLine();
         }
     }
+
    private void RealizarTurno()
     {
         for (int i = 0; i < numJugadores; i++)
         {
             Ficha ficha = ListaJugadores[i].Ficha; // acceder a la ficha ya asigndada al jugador en cuestion  // Ficha ficha se usa para crear una variable local que guarde la referencia solop para este metodo (se usa ficha en vez de ListaJugadores[i].Ficha)
             Console.Clear();
-            Console.WriteLine($"Turno del {ListaJugadores[i].Nombre}:");
-            MostrarEstado();
+            MostrarEstado(); 
             if(ficha.enfriamientoActual>0)
             {
                 Console.WriteLine($"Tu habilidad esta en enfriamiento por {ficha.enfriamientoActual} turnos");
@@ -209,12 +210,13 @@ public class Partida
                 string respuesta;
                 do
                 {
-                    Console.WriteLine("Quieres usar tu habilidad antes de moverte? (SI/NO)");
+                    AnsiConsole.MarkupLine($"[purple]Turno del {ListaJugadores[i].Nombre} encarnando al {ficha.Nombre}:[/]");
+                    AnsiConsole.MarkupLine("[purple]Quieres usar tu habilidad antes de moverte? (SI/NO)[/]");
                     respuesta = Console.ReadLine().ToUpper();
 
                     if(respuesta != "SI"  && respuesta != "NO")
                     {
-                        Console.WriteLine("Respuesta invalida. Que te cuesta decir SI o NO?");
+                        AnsiConsole.MarkupLine("[red]Respuesta invalida. Que te cuesta decir SI o NO?[/]");
                     }
                 }
                 while(respuesta  != "SI" && respuesta != "NO");
@@ -230,12 +232,13 @@ public class Partida
             {
                 Console.Clear();
                 MostrarEstado();
+                AnsiConsole.MarkupLine($"[purple]Turno del {ListaJugadores[i].Nombre} encarnando al {ficha.Nombre}:[/]");
                 if(ficha.enfriamientoActual>0 && m ==ficha.Velocidad) // en el primer movimiento solamente
                 {
-                    Console.WriteLine($"Tu habilidad esta en enfriamiento por {ficha.enfriamientoActual} turnos");
+                    AnsiConsole.MarkupLine($"[red]Tu habilidad esta en enfriamiento por {ficha.enfriamientoActual} turnos[/]");
                 }
 
-                Console.WriteLine($"Te quedan {m} movimientos.");
+                AnsiConsole.MarkupLine($"[purple]Te quedan {m} movimientos.[/]");
 
                 if(!LeerMovimiento(ficha, tablero))
                 {
